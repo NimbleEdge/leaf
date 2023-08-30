@@ -40,8 +40,9 @@ def relabel_class(c):
 
 
 parent_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+parent_path = "/mnt/share/femnist"
 
-by_writer_dir = os.path.join(parent_path, "data", "intermediate", "images_by_writer")
+by_writer_dir = os.path.join(parent_path, "raw", "intermediate", "images_by_writer")
 writers = util.load_obj(by_writer_dir)
 
 num_json = int(math.ceil(len(writers) / MAX_WRITERS))
@@ -62,7 +63,7 @@ def format_image(tup):
     file_path = os.path.join(parent_path, f)
     img = Image.open(file_path)
     gray = img.convert("L")
-    gray.thumbnail(size, Image.ANTIALIAS)
+    gray.thumbnail(size, Image.LANCZOS)
     arr = np.asarray(gray).copy()
     vec = arr.flatten()
     vec = vec / 255  # scale all pixel values to between 0 and 1
@@ -95,7 +96,7 @@ if __name__ == "__main__":
             all_data["user_data"] = user_data
 
             file_name = "all_data_%d.json" % json_index
-            file_path = os.path.join(parent_path, "data", "all_data", file_name)
+            file_path = os.path.join(parent_path, "raw", "all_data", file_name)
 
             # print('writing %s' % file_name)
 

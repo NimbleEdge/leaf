@@ -13,8 +13,9 @@ import util
 
 parent_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-cfd = os.path.join(parent_path, "data", "intermediate", "class_file_dirs")
-wfd = os.path.join(parent_path, "data", "intermediate", "write_file_dirs")
+parent_path = "/mnt/share/femnist"
+cfd = os.path.join(parent_path, "raw", "intermediate", "class_file_dirs")
+wfd = os.path.join(parent_path, "raw", "intermediate", "write_file_dirs")
 class_file_dirs = util.load_obj(cfd)
 write_file_dirs = util.load_obj(wfd)
 
@@ -44,10 +45,10 @@ if __name__ == "__main__":
     class_file_hashes = list(
         tqdm(p.imap(create_hash, class_file_dirs), total=len(class_file_dirs))
     )
-    cfhd = os.path.join(parent_path, "data", "intermediate", "class_file_hashes")
+    cfhd = os.path.join(parent_path, "raw", "intermediate", "class_file_hashes")
     util.save_obj(class_file_hashes, cfhd)
     write_file_hashes = list(
         tqdm(p.imap(write_hashed_image, write_file_dirs), total=len(write_file_dirs))
     )
-    wfhd = os.path.join(parent_path, "data", "intermediate", "write_file_hashes")
+    wfhd = os.path.join(parent_path, "raw", "intermediate", "write_file_hashes")
     util.save_obj(write_file_hashes, wfhd)

@@ -2,13 +2,13 @@
 
 # assumes that the script is run in the preprocess folder
 
-if [ ! -d "../data" ]; then
-  mkdir ../data
+if [ ! -d "$1" ]; then
+  mkdir $1
 fi
-if [ ! -d "../data/raw_data" ]; then
+if [ ! -d "$1/raw_data" ]; then
   echo "------------------------------"
   echo "downloading data"
-  mkdir ../data/raw_data
+  mkdir $1/raw_data
   ./get_data.sh
   echo "finished downloading data"
 fi

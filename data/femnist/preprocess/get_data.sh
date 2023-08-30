@@ -5,8 +5,8 @@
 cd ../data/raw_data
 wget https://s3.amazonaws.com/nist-srd/SD19/by_class.zip
 wget https://s3.amazonaws.com/nist-srd/SD19/by_write.zip
-unzip by_class.zip -qq
-rm by_class.zip
-unzip by_write.zip -qq
-rm by_write.zip
+unzip -qq by_class.zip
+# rm by_class.zip
+unzip -qq by_write.zip
+# rm by_write.zip
 cd ../../preprocess

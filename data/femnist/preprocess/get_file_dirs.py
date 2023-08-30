@@ -11,6 +11,7 @@ the directories written into the files are of the form 'raw_data/...'
 import os
 import sys
 from multiprocessing import Pool
+from tqdm import tqdm
 
 utils_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 utils_dir = os.path.join(utils_dir, 'utils')
@@ -20,15 +21,16 @@ import util
 
 parent_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
+parent_path = "/mnt/share/femnist"
 class_files = []  # (class, file directory)
 write_files = []  # (writer, file directory)
 
-class_dir = os.path.join(parent_path, 'data', 'raw_data', 'by_class')
-rel_class_dir = os.path.join('data', 'raw_data', 'by_class')
+class_dir = os.path.join(parent_path, 'raw', 'raw_data', 'by_class')
+rel_class_dir = os.path.join('raw', 'raw_data', 'by_class')
 classes = os.listdir(class_dir)
 classes = [c for c in classes if len(c) == 2]
 
-for cl in classes:
+for cl in tqdm(classes):
     cldir = os.path.join(class_dir, cl)
     rel_cldir = os.path.join(rel_class_dir, cl)
     subcls = os.listdir(cldir)
@@ -44,11 +46,11 @@ for cl in classes:
         for image_dir in image_dirs:
             class_files.append((cl, image_dir))
 
-write_dir = os.path.join(parent_path, 'data', 'raw_data', 'by_write')
-rel_write_dir = os.path.join('data', 'raw_data', 'by_write')
+write_dir = os.path.join(parent_path, 'raw', 'raw_data', 'by_write')
+rel_write_dir = os.path.join('raw', 'raw_data', 'by_write')
 write_parts = os.listdir(write_dir)
 
-for write_part in write_parts:
+for write_part in tqdm(write_parts):
     writers_dir = os.path.join(write_dir, write_part)
     rel_writers_dir = os.path.join(rel_write_dir, write_part)
     writers = os.listdir(writers_dir)
@@ -69,7 +71,7 @@ for write_part in write_parts:
 
 util.save_obj(
     class_files,
-    os.path.join(parent_path, 'data', 'intermediate', 'class_file_dirs'))
+    os.path.join(parent_path, 'raw', 'intermediate', 'class_file_dirs'))
 util.save_obj(
     write_files,
-    os.path.join(parent_path, 'data', 'intermediate', 'write_file_dirs'))
+    os.path.join(parent_path, 'raw', 'intermediate', 'write_file_dirs'))
